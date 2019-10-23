@@ -1,0 +1,49 @@
+.control-box {
+    background-color: cornsilk;
+    width: 400px;
+    height: 450px;
+    border-radius: 50px;
+    
+    position: absolute;
+    top: 100px;
+    right: 200px;
+
+}
+
+.car-control-btn-box {
+    
+    .btn-control {
+      height: 60px;
+      width: 60px;
+      border-radius: 10px;
+    }
+    
+    .-up {
+      position: relative;
+      top: 60px;
+      right: -117px;
+    }
+    
+    .-left {
+      position: relative;
+      top: 140px;
+      right: 50px;
+    }
+    
+    .-right {
+      position: relative;
+      top: 140px;
+      left: 50px; 
+    }
+    
+    .-bottom {
+      position: relative;
+      top: 215px;
+      right: 113px;
+    }
+  }
+  
+.blutooth-btn {
+    position: relative;
+    top: 20px;
+}
