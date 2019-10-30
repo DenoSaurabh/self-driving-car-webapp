@@ -18,18 +18,9 @@ import Button from '../button-circle/button.component';
 
 //  This Component is a box for Control
 const CarControlBtnBox = () => {
-  // constructor() {
-  //   super();
-  //   this.state = {};
 
-  //   this.handlekeyUp = this.handlekeyUp.bind(this);
-  //   this.handlekeyLeft = this.handlekeyLeft.bind(this);
-  //   this.handlekeyRight = this.handlekeyRight.bind(this);
-  //   this.handlekeyBottom = this.handlekeyBottom.bind(this);
-  // }
-  
   // Establishing Connection
-  const socket = socketClient('http://localhost:5000');
+  const socket = socketClient('https://self-driving-car-serverapp.herokuapp.com/');
 
 
   const handlekeyUp = () => {
