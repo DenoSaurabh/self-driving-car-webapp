@@ -19,28 +19,40 @@ import Button from '../button-circle/button.component';
 //  This Component is a box for Control
 const CarControlBtnBox = () => {
 
+  let url = 'https://self-driving-car-serverapp.herokuapp.com/';
+  
+  // For Development
+  url = 'http://localhost:5000'
+  
   // Establishing Connection
-  const socket = socketClient('https://self-driving-car-serverapp.herokuapp.com/');
+  const socket = socketClient(url, {
+    query: 'device=computer'
+  });
 
+  const emitingFunc = move => {
+    socket.emit('movement', move);
+  } 
+  
 
   const handlekeyUp = () => {
     console.log('Up key Pressed');
-    socket.emit('straightmove', 'Hey Car move Forward');
+    emitingFunc('Forward');
   }
 
   const handlekeyLeft = () => {
     console.log('Left key Pressed');
-    socket.emit('leftmove', 'Hey Car move Left');
+    emitingFunc('Left');
   }
 
   const handlekeyRight = () => {
     console.log('Right key Pressed');
-    socket.emit('rightmove', 'Hey Car move Right');
+    emitingFunc('Right');
   }
 
   const handlekeyBottom = () => {
     console.log('Bottom key Pressed');
-    socket.emit('backmove', 'Hey Car move Backward');
+    emitingFunc('Backward');
+
   }
 
     return (
