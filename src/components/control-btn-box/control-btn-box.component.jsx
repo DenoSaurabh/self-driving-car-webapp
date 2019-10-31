@@ -22,7 +22,7 @@ const CarControlBtnBox = () => {
   let url = 'https://self-driving-car-serverapp.herokuapp.com/';
   
   // For Development
-  url = 'http://localhost:5000'
+  //url = 'http://localhost:5000'
   
   // Establishing Connection
   const socket = socketClient(url, {
