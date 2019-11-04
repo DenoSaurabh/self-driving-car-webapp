@@ -5,7 +5,7 @@
     border-radius: 50px;
     
     position: absolute;
-    top: 150px;
+    top: 200px;
     right: 200px;
 
 }
@@ -43,7 +43,13 @@
     }
   }
   
-.blutooth-btn {
+.blutooth-btn-con {
     position: relative;
     top: 20px;
+    background-color: green;
+}
+
+.blutooth-btn-dis {
+  position: relative;
+  top: 20px;
 }
