@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import './control-btn-box.styles.scss';
 
@@ -21,9 +22,9 @@ const CarControlBtnBox = ({ callBackFunction }) => {
   let url = 'https://self-driving-car-serverapp.herokuapp.com/';
 
   // For Development
-  //url = 'http://localhost:5000';
+  url = 'http://localhost:5000';
 
-  let CarID;
+  // let CarID;
   const [socket, setSocket] = useState(undefined);
 
   // Function to Send data to parent Component
@@ -31,26 +32,27 @@ const CarControlBtnBox = ({ callBackFunction }) => {
 
   const getConnected = e => {
     e.preventDefault();
-    
+
     const password = window.prompt('Enter the password to connect to Car 🔑');
 
-    if (password === 'pi') {
+    if (password === 'PICarProject') {
       // Establishing Connection
-      setSocket(socketClient(url, {
-        query: 'device=computer',
-      }));
-      
+      setSocket(
+        socketClient(url, {
+          query: 'device=computer',
+        }),
+      );
+
       console.log(socket);
 
       sendStatus('connected');
-      console.log('after status')
+      console.log('after status');
       console.log(socket);
 
       window.alert('You are now connected with Car 📡😀🚗');
-      
-      console.log('after alert')
-      console.log(socket );
 
+      console.log('after alert');
+      console.log(socket);
     } else if (password !== 'PICarProject') {
       sendStatus('UnAuthenticated');
       window.alert('Seems like you have written the Wrong Password!! ✍😯');
@@ -62,7 +64,7 @@ const CarControlBtnBox = ({ callBackFunction }) => {
 
   const getDisconnected = e => {
     e.preventDefault();
-    
+
     if (socket) {
       setSocket(undefined);
       sendStatus('disconnected');
@@ -73,15 +75,18 @@ const CarControlBtnBox = ({ callBackFunction }) => {
     }
   };
 
-  const emitingFunc = move => {
+  const emitingFunc = (emit, move) => {
     console.log(`${socket} emitting`);
-    
+
     if (socket) {
-      console.log(socket)
-      socket.emit('movement', move);
+      console.log(socket);
+      socket.emit(`move${emit}`, move);
     } else {
       window.alert(
-        'Seems like you are not connected with car. Please press White button to GO 😕🚗. This can be also a Server problem. So please try again after some time. Until Keep calm 😌',
+        `Seems like you are not connected with car. 
+        Please press White button to GO 😕🚗. 
+        This can be also a Server problem. 
+        So please try again after some time. Until Keep calm 😌`,
       );
     }
   };
@@ -89,22 +94,43 @@ const CarControlBtnBox = ({ callBackFunction }) => {
   // Emitting Movement and Handles
   const handlekeyUp = () => {
     console.log('Up key Pressed');
-    emitingFunc('Forward');
+    emitingFunc('forOrBack', 'Forward');
   };
 
   const handlekeyLeft = () => {
     console.log('Left key Pressed');
-    emitingFunc('Left');
+    emitingFunc('leftOrRight', 'Left');
   };
 
   const handlekeyRight = () => {
     console.log('Right key Pressed');
-    emitingFunc('Right');
+    emitingFunc('leftOrRight', 'Right');
   };
 
   const handlekeyBottom = () => {
     console.log('Bottom key Pressed');
-    emitingFunc('Backward');
+    emitingFunc('forOrBack', 'Backward');
+  };
+
+  // Angle Keys Handlers
+  const handleAnglekeyTopLeft = () => {
+    console.log('TopLeft key Pressed');
+    emitingFunc('AngleCar', 'topleft');
+  };
+
+  const handleAnglekeyTopRight = () => {
+    console.log('TopRight key Pressed');
+    emitingFunc('AngleCar', 'topright');
+  };
+
+  const handleAnglekeyBottomLeft = () => {
+    console.log('BottomLeft key Pressed');
+    emitingFunc('AngleCar', 'backwardleft');
+  };
+
+  const handleAnglekeyBottomRight = () => {
+    console.log('BottomRight key Pressed');
+    emitingFunc('AngleCar', 'backwardright');
   };
 
   // Pressing Buttons
@@ -112,18 +138,33 @@ const CarControlBtnBox = ({ callBackFunction }) => {
     const { key } = event;
 
     if (key === 'w') {
-      emitingFunc('Forward');
+      emitingFunc('forOrBack', 'Forward');
     } else if (key === 's') {
-      emitingFunc('Backward');
+      emitingFunc('forOrBack', 'Backward');
     } else if (key === 'a') {
-      emitingFunc('Left');
+      emitingFunc('leftOrRight', 'Left');
     } else if (key === 'd') {
-      emitingFunc('Right');
+      emitingFunc('leftOrRight', 'Right');
+    } else if (key === 'q') {
+      emitingFunc('AngleCar', 'topleft');
+    } else if (key === 'e') {
+      emitingFunc('AngleCar', 'topright');
+    } else if (key === 'z') {
+      emitingFunc('AngleCar', 'backwardleft');
+    } else if (key === 'c') {
+      emitingFunc('AngleCar', 'backwardright');
     }
   };
-  
-  console.log('at last')
+
+  console.log('at last');
   console.log(socket);
+
+  /*
+  DISCLAMIR: The classes of the control buttons are wrong because 
+  There were 8 buttons which became difficult to adjust them. 
+  So I decide to do cramming there. Sorry. 
+  The real type of button is as props: btnRealType
+  */
 
   return (
     <div className="control-box" onKeyPress={handleKeyPress} tabIndex="0">
@@ -143,10 +184,61 @@ const CarControlBtnBox = ({ callBackFunction }) => {
       />
 
       <div className="car-control-btn-box">
-        <Button btntype="up" onClickHandler={handlekeyUp} value={<ExpandLessSharpIcon />} />
-        <Button btntype="left" onClickHandler={handlekeyLeft} value={<ChevronLeftSharpIcon />} />
-        <Button btntype="right" onClickHandler={handlekeyRight} value={<ChevronRightSharpIcon />} />
-        <Button btntype="bottom" onClickHandler={handlekeyBottom} value={<ExpandMoreSharpIcon />} />
+        <Button
+          btnClass="up"
+          btnRealType="left"
+          onClickHandler={handlekeyLeft}
+          value={<ChevronLeftSharpIcon />}
+        />
+
+        <Button
+          btnClass="upleft"
+          btnRealType="downright"
+          onClickHandler={handleAnglekeyBottomRight}
+          value={<ExpandMoreSharpIcon />}
+        />
+
+        <Button
+          btnClass="left"
+          btnRealType="downleft"
+          onClickHandler={handleAnglekeyBottomLeft}
+          value={<ExpandMoreSharpIcon />}
+        />
+
+        <Button
+          btnClass="bottomleft"
+          btnRealType="right"
+          onClickHandler={handlekeyRight}
+          value={<ChevronRightSharpIcon />}
+        />
+
+        <Button
+          btnClass="bottom"
+          btnRealType="bottom"
+          onClickHandler={handlekeyBottom}
+          value={<ExpandMoreSharpIcon />}
+        />
+
+        <Button
+          btnClass="bottomright"
+          btnRealType="upleft"
+          onClickHandler={handleAnglekeyTopLeft}
+          value={<ExpandLessSharpIcon />}
+        />
+
+        <Button
+          btnClass="right"
+          btnRealType="up"
+          onClickHandler={handlekeyUp}
+          value={<ExpandLessSharpIcon />}
+        />
+
+        <Button
+          btnClass="upright"
+          btnRealType="upright"
+          onClickHandler={handleAnglekeyTopRight}
+          value={<ExpandLessSharpIcon />}
+        />
       </div>
     </div>
   );

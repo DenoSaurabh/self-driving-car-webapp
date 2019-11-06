@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Buttons({ value, btntype, onClickHandler }) {
+export default function Buttons({ value, btnClass, onClickHandler }) {
   const classes = useStyles();
 
   return (
@@ -19,7 +19,7 @@ export default function Buttons({ value, btntype, onClickHandler }) {
       color="primary"
       aria-label="add"
       onClick={onClickHandler}
-      className={`${classes.fab} btn-control -${btntype}`}
+      className={`${classes.fab} btn-control -${btnClass}`}
     >
       {value}
     </Fab>

@@ -18,12 +18,48 @@
       border-radius: 10px;
     }
     
-    .-up {
+    .-upleft, .-bottomright, .-left, .-upright {
+      background-color: aqua;
+    }
+    /*
+    .-upleft, .-upright {
+      margin-bottom: 10px;
+    }*/
+    
+    .-upleft {
       position: relative;
-      top: 60px;
-      right: -117px;
+      top: 20px;
+      right: -150px;
     }
     
+    .-up {
+      position: relative;
+      top: 150px;
+      left: 80px;
+    }
+    
+    .-bottomleft {
+      position: relative;
+      top: 150px;
+    }
+    
+    .-upleft {
+      position: relative;
+      top: 220px;
+    }
+    
+    .-left {
+      position: relative;
+      top: 220px;
+      left: -75px;
+    }
+    
+    .-bottom {
+      position: relative;
+      top: 20px;
+    }
+    
+    /*
     .-left {
       position: relative;
       top: 140px;
@@ -35,11 +71,12 @@
       top: 140px;
       left: 50px; 
     }
+    */
     
     .-bottom {
       position: relative;
       top: 215px;
-      right: 113px;
+      right: 150px;
     }
   }
   
